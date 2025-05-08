@@ -5,6 +5,7 @@ public abstract class User {
     protected String Name = null;
     protected String Email = null;
     protected long Phone = 0;
+    protected boolean Activated = false;
 
     public User(long userID, String Username, String password, String name, String email, long phone) {
         this.UserID = userID;
@@ -59,5 +60,8 @@ public abstract class User {
         this.Name = name;
         this.Email = email;
         this.Phone = phone;
+    }
+    public void DisplayProfile(){
+        System.out.println("Name: "+Name+"\nUsername: "+Username+"\nEmail: "+Email+"\nUserID: "+UserID+"\nPhone: 0"+Phone);
     }
 }

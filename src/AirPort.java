@@ -3,14 +3,16 @@ import java.util.Scanner;
 public class AirPort {
     public static void main(String[] args) throws Exception {
         LinkedList<Customer> Customers = new LinkedList<Customer>();
+        Customers.add(new Customer(0,"admin","admin", null, null, 0));
         LinkedList<Flight> Flights = new LinkedList<Flight>();
         Scanner input = new Scanner(System.in);
-        System.out.println("Welcome to the Airport Management System");
+        System.out.println("\nWelcome to the Airport Management System\n");
         do { 
             System.out.println("1.login\n2.register\n3.exit");
             int choice = input.nextInt();
             switch (choice) {
                 case 1:
+                    boolean flag = false;
                     System.out.println("Enter your username: ");
                     String username = input.next();
                     System.out.println("Enter your password: ");
@@ -19,19 +21,23 @@ public class AirPort {
                         System.out.println("No customers registered. Please register first.");
                         break;
                     }
+
                     for(Customer customer : Customers) {
                         if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
                             System.out.println("Login successful! Welcome " + customer.getName() + ".");
                             UserProfile userProfile = new UserProfile(customer);
-                            userProfile.CustomerMenu();
+                            if (customer.Activated == true){
+                                userProfile.CustomerMenu();
+                                flag = true;
+                            }else{
+                                System.out.println("\nWAIT TILL THE ACTIVATION\n");
+                            }
                             break;
-                        } else {
-                            System.out.println("Invalid username or password. Please try again.");
                         }
                     }
-
-                    
-                    
+                    if(!flag){
+                        System.out.println("Invalid username or password. Please try again.");
+                    }
                     break;
                 case 2:
                     System.out.println("Enter your name: ");

@@ -16,7 +16,7 @@ public class Admin extends User {
     public void UpdateProfile() {
         System.out.println("updated profile");
     }
-    public void createUser(){
+    public void CreateUser(){
         System.out.println("create user");
     }
     public void manageSystemSettings() {
