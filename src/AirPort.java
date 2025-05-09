@@ -1,10 +1,12 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 public class AirPort {
     public static void main(String[] args) throws Exception {
-        LinkedList<Customer> Customers = new LinkedList<Customer>();
-        Customers.add(new Customer(0,"admin","admin", null, null, 0));
-        LinkedList<Flight> Flights = new LinkedList<Flight>();
+        List<User> Users = new ArrayList<>();
+        Users.add(new Admin("admin", "admin", "admin", null, 0,"SuperAdmin"));
+        Users.get(0).setActivated(true);
+        List<Flight> Flights = new ArrayList<>();
         Scanner input = new Scanner(System.in);
         System.out.println("\nWelcome to the Airport Management System\n");
         do { 
@@ -17,17 +19,22 @@ public class AirPort {
                     String username = input.next();
                     System.out.println("Enter your password: ");
                     String password = input.next();
-                    if (Customers.isEmpty()) {
-                        System.out.println("No customers registered. Please register first.");
+                    if (Users.isEmpty()) {
+                        System.out.println("No Users registered. Please register first.");
                         break;
                     }
-
-                    for(Customer customer : Customers) {
-                        if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
-                            System.out.println("Login successful! Welcome " + customer.getName() + ".");
-                            UserProfile userProfile = new UserProfile(customer);
-                            if (customer.Activated == true){
-                                userProfile.CustomerMenu();
+                    for(User User : Users) {
+                        if (User.getUsername().equals(username) && User.getPassword().equals(password)) {
+                            System.out.println("Login successful! Welcome " + User.getName() + ".");
+                            UserProfile userProfile = new UserProfile(User,Users);
+                            if (User.isActivated()){
+                                if (User.getAccountType().equals("Admin")) {
+                                    userProfile.AdminMenu();
+                                } else if (User.getAccountType().equals("Agent")) {
+                                    userProfile.AgentMenu();
+                                } else if (User.getAccountType().equals("Customer")) {
+                                    userProfile.CustomerMenu();
+                                }
                                 flag = true;
                             }else{
                                 System.out.println("\nWAIT TILL THE ACTIVATION\n");
@@ -41,25 +48,45 @@ public class AirPort {
                     break;
                 case 2:
                     System.out.println("Enter your name: ");
+                    input.nextLine();
                     String name = input.next();
                     System.out.println("Enter your email: ");
+                    input.nextLine();
                     String email = input.next();
                     System.out.println("Enter your phone number: ");
                     long phone = input.nextLong();
                     System.out.println("Enter your username: ");
                     username = input.next();
-                    for (Customer customer : Customers) {
-                        if (customer.getUsername().equals(username)) {
+                    for (User User : Users) {
+                        if (User.getUsername().equals(username)) {
                             System.out.println("Username already exists. Please choose a different username.");
                             username = input.next();
                         }
                     }
                     System.out.println("Enter your password: ");
                     password = input.next();
-                    System.out.println("Enter your user ID: ");
-                    long userID = input.nextLong();
-                    Customers.add(new Customer(userID, username, password, name, email, phone));
-                    System.out.println("Customer registered successfully!");
+                    System.out.println("\nCHOOSE YOUR ACCOUNT TYPE \n1. Customer \n2. Agent");
+                    System.out.println("Enter your account Type:");
+                    choice = input.nextInt();
+                    switch (choice) {
+                        case 1:
+                            System.out.println("Enter your address: ");
+                            input.nextLine();
+                            String address = input.next();
+                            System.out.println("Enter your preferences: ");
+                            input.nextLine();
+                            String preferences = input.next();
+                            Users.add(new Customer(username, password, name, email, phone, address, preferences));
+                            break;
+                        case 2:
+                            System.out.println("Enter your department: ");
+                            String department = input.next();
+                            Users.add(new Agent(username, password, name, email, phone, department, 0.0));
+                            break;
+                        default:
+                            throw new AssertionError();
+                    }
+                    System.out.println("User registered successfully!");
                     break;
                 case 3:
                     System.out.println("Exiting the system. Goodbye!");

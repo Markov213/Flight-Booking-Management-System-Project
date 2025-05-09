@@ -1,14 +1,16 @@
 public class Admin extends User {
-    long AdminID;
-    String SecurityLevel;
-    public Admin(long UserID, String Username, String password, String name, String email, long phone, String SecurityLevel) {
-        super(UserID,Username, password, name, email, phone);
-        this.AdminID = UserID;
+    private static long NumberofAdmins = 0;
+    private long AdminID;
+    private String SecurityLevel;
+    public Admin(String Username, String password, String name, String email, long phone, String SecurityLevel) {
+        super(Username, password, name, email, phone);
+        this.AdminID = this.NumberofAdmins++;
         this.SecurityLevel = SecurityLevel;
+        this.setAccountType("Admin");
     }
     @Override
-    public User login(String Username, String Password) {
-        return this;
+    public boolean login(String Username, String Password) {
+        return this.getUsername().equals(Username) && this.getPassword().equals(Password) ? true : false;
     }
     public User logout() {
         return null;
@@ -16,7 +18,7 @@ public class Admin extends User {
     public void UpdateProfile() {
         System.out.println("updated profile");
     }
-    public void CreateUser(){
+    public void ActivateUser(){
         System.out.println("create user");
     }
     public void manageSystemSettings() {

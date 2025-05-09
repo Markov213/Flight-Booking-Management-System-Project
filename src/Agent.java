@@ -1,16 +1,18 @@
 public class Agent extends User{
+    private static long NumberofAgents = 0;
     private long AgentID;
     private String Department;
-    private String Commission;
-    public Agent(long userID, String Username, String password, String name, String email, long phone, long AgentID, String Department, String Commission) {
-        super(userID, Username, password, name, email, phone);
-        this.AgentID = AgentID;
+    private double Commission;
+    public Agent(String Username, String password, String name, String email, long phone, String Department, double Commission) {
+        super(Username, password, name, email, phone);
+        this.AgentID = this.NumberofAgents++;
         this.Department = Department;
         this.Commission = Commission;
+        this.setAccountType("Agent");
     }
     @Override
-    public User login(String Username, String Password) {
-        return this;
+    public boolean login(String Username, String Password) {
+        return this.getUsername().equals(Username) && this.getPassword().equals(Password) ? true : false;
     }
     public User logout() {
         return null;

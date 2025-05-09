@@ -1,14 +1,15 @@
 public abstract class User {
-    protected long UserID = 0;
-    protected String Username = null;
-    protected String Password = null;
-    protected String Name = null;
-    protected String Email = null;
-    protected long Phone = 0;
-    protected boolean Activated = false;
-
-    public User(long userID, String Username, String password, String name, String email, long phone) {
-        this.UserID = userID;
+    private static long NumberofUsers = 0;
+    private long UserID = 0;
+    private String Username = null;
+    private String Password = null;
+    private String Name = null;
+    private String Email = null;
+    private long Phone = 0;
+    private boolean Activated = false;
+    private String AccountType = null;
+    public User(String Username, String password, String name, String email, long phone) {
+        this.UserID = NumberofUsers++;
         this.Username = Username;
         this.Password = password;
         this.Name = name;
@@ -33,6 +34,12 @@ public abstract class User {
     public long getPhone() {
         return Phone;
     }
+    public boolean isActivated() {
+        return Activated;
+    }
+    public String getAccountType() {
+        return AccountType;
+    }
     public void setUserID(long userID) {
         this.UserID = userID;
     }
@@ -51,10 +58,15 @@ public abstract class User {
     public void setPhone(long phone) {
         this.Phone = phone;
     }
-    public abstract User login(String Username, String Password);
+    public void setActivated(boolean activated) {
+        this.Activated = activated;
+    }
+    public void setAccountType(String accountType) {
+        this.AccountType = accountType;
+    }
+    public abstract boolean login(String Username, String Password);
     public abstract User logout();
-    public void UpdateProfile(long userID, String Username, String password, String name, String email, long phone){
-        this.UserID = userID;
+    public void UpdateProfile(String Username, String password, String name, String email, long phone){
         this.Username = Username;
         this.Password = password;
         this.Name = name;

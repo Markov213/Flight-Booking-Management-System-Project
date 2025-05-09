@@ -1,16 +1,21 @@
 import java.util.LinkedList;
 
 public class Customer extends User {
-    private long customerId;
+    private static long NumberofCustomers = 0;
+    private long CustomerId;
     private String address;
     private String preferences;
     LinkedList<Flight> BookedFlights = new LinkedList<Flight>();
-    public Customer(long userID, String Username, String password, String name, String email, long phone) {
-        super(userID, Username, password, name, email, phone);
+    public Customer(String Username, String password, String name, String email, long phone, String address, String preferences) {
+        super(Username, password, name, email, phone);
+        this.CustomerId = this.NumberofCustomers++;
+        this.address = address;
+        this.preferences = preferences;
+        this.setAccountType("Customer");
     }
     @Override
-    public User login(String Username, String Password) {
-        return this;
+    public boolean login(String Username, String Password) {
+        return this.getUsername().equals(Username) && this.getPassword().equals(Password) ? true : false;
     }
     public User logout() {
         return null;
