@@ -65,6 +65,10 @@ public class AirPort {
                     }
                     System.out.println("Enter your password: ");
                     password = input.next();
+                    while (password.length() < 6) {
+                        System.out.println("Password must be at least 6 characters long. Please enter a new password: ");
+                        password = input.next();
+                    }
                     System.out.println("\nCHOOSE YOUR ACCOUNT TYPE \n1. Customer \n2. Agent");
                     System.out.println("Enter your account Type:");
                     choice = input.nextInt();

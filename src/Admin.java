@@ -15,11 +15,9 @@ public class Admin extends User {
     public User logout() {
         return null;
     }
-    public void UpdateProfile() {
-        System.out.println("updated profile");
-    }
-    public void ActivateUser(){
-        System.out.println("create user");
+    public void UpdateProfile(String Username, String password, String name, String email, long phone, String SecurityLevel) {
+        this.UpdateProfile(Username, password, name, email, phone);
+        this.SecurityLevel = SecurityLevel;
     }
     public void manageSystemSettings() {
         System.out.println("manage system settings");

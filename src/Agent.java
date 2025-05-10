@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Agent extends User{
     private static long NumberofAgents = 0;
     private long AgentID;
     private String Department;
     private double Commission;
+    private List<Flight> AssignedFlights = new ArrayList<Flight>();
+    private double Salary;
     public Agent(String Username, String password, String name, String email, long phone, String Department, double Commission) {
         super(Username, password, name, email, phone);
         this.AgentID = this.NumberofAgents++;
@@ -17,19 +21,26 @@ public class Agent extends User{
     public User logout() {
         return null;
     }
-    public void UpdateProfile() {
-        System.out.println("updated profile");
+    public void UpdateProfile(String Username, String password, String name, String email, long phone, String Department) {
+        this.UpdateProfile(Username, password, name, email, phone);
+        this.Department = Department;
     }
-    public void manageFlights() {
-        System.out.println("manage flights");
+    public void setCommission(double Commission) {
+        this.Commission = Commission;
     }
-    public void createBookingForCustomer() {
-        System.out.println("create booking for customer");
+    public void CalculateCommissionEachFlight() {
+        for (Flight flight : AssignedFlights) {
+                double A = flight.getPrice() * Commission / 100;
+                Salary += A;
+                System.out.println("Commission for flight number " + flight.getFlightNumber() + " is: " + (A));
+        }
     }
-    public void modifyBooking() {
-        System.out.println("modify booking");
+    public void DisplayFlightsDetails() {
+        for (Flight flight : AssignedFlights) {
+            flight.DisplayFlightDetails();
+        }
     }
-    public void generateReports() {
-        System.out.println("generate reports");
+    public double getSalary() {
+        return Salary;
     }
 }

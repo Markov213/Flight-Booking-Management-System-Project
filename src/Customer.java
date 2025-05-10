@@ -1,11 +1,11 @@
-import java.util.LinkedList;
-
+import java.util.ArrayList;
+import java.util.List;
 public class Customer extends User {
     private static long NumberofCustomers = 0;
     private long CustomerId;
     private String address;
     private String preferences;
-    LinkedList<Flight> BookedFlights = new LinkedList<Flight>();
+    private List<Flight> BookedFlights = new ArrayList<Flight>();
     public Customer(String Username, String password, String name, String email, long phone, String address, String preferences) {
         super(Username, password, name, email, phone);
         this.CustomerId = this.NumberofCustomers++;
@@ -19,9 +19,26 @@ public class Customer extends User {
     }
     public User logout() {
         return null;
+    }public void UpdateProfile(String Username, String password, String name, String email, long phone, String address, String preferences) {
+        this.UpdateProfile(Username, password, name, email, phone);
+        this.address = address;
+        this.preferences = preferences;
     }
-    public void UpdateProfile() {
-        System.out.println("updated profile");
+    public void ViewBookingHistory() {
+        for (Flight flight : BookedFlights) {
+            System.out.println(flight);
+        }
+    }
+    public void BookFlight(Flight flight) {
+        BookedFlights.add(flight);
+        flight.ReserveSeatTo(this);
+    }
+    public void CancelFlight(Flight flight) {
+        BookedFlights.remove(flight);
+        flight.CancelSeat(this);
+    }
+    public void DisplayProfile(){
+        System.out.println("Name: "+getName()+"\nUsername: "+getUsername()+"\nEmail: "+getEmail()+"\nUserID: "+getUserID()+"\nPhone: 0"+getPhone()+"\nAddress: "+address+"\nPreferences: "+preferences);
     }
 
 

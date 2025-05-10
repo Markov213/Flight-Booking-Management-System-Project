@@ -76,4 +76,13 @@ public abstract class User {
     public void DisplayProfile(){
         System.out.println("Name: "+Name+"\nUsername: "+Username+"\nEmail: "+Email+"\nUserID: "+UserID+"\nPhone: 0"+Phone);
     }
+    public void ViewBookingHistory(){
+        System.out.println("No booking history available");
+    }
+    public void BookFlight(Flight flight){
+        System.out.println("No booking history available");
+    }
+    public void CancelFlight(Flight flight){
+        System.out.println("No booking history available");
+    }
 }
