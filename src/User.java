@@ -85,4 +85,7 @@ public abstract class User {
     public void CancelFlight(Flight flight){
         System.out.println("No booking history available");
     }
+    public String getPrefrences(int index){
+        return null;
+    }
 }

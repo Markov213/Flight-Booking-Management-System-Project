@@ -1,4 +1,4 @@
-import java.security.Security;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 public class UserProfile {
@@ -65,6 +65,7 @@ public class UserProfile {
                                     System.out.println("Flight found!");
                                     System.out.println("Flight details:");
                                     flight.DisplayFlightDetails();
+                                    System.out.println("We considered your preferences and added a plane with"+user.getPrefrences(0)+" and your favorate food "+user.getPrefrences(1));
                                     break;
                                 }
                             }
@@ -94,6 +95,24 @@ public class UserProfile {
                         case 4:
                             System.out.println("\nPLEASE PROVIDE DESTINATION\n");
                             String destination = input.next();
+                            System.out.println("Enter your payment method: ");
+                            System.out.println("1.Credit Card\n2.Bank Transfer");
+                            int paymentMethod = input.nextInt();
+                            if (paymentMethod == 1) {
+                                System.out.println("Enter your credit card number: ");
+                                String creditCardNumber = input.next();
+                                System.out.println("Enter your credit card expiry date: ");
+                                String expiryDate = input.next();
+                                System.out.println("Enter your credit card CVV: ");
+                                String cvv = input.next();
+                            
+                            } else if (paymentMethod == 2) {
+                                System.out.println("Enter your bank account number: ");
+                                String bankAccountNumber = input.next();
+                            } else {
+                                System.out.println("Invalid payment method. Please try again.");
+                            }
+                            System.out.println("We will send you a confirmation email to "+user.getEmail());
                             for (Flight flight : Flight.Flights) {
                                 if (flight.getDestination().equals(destination)) {
                                     System.out.println("Flight found!");
@@ -110,6 +129,7 @@ public class UserProfile {
                                     System.out.println("Flight found!");
                                     System.out.println("Flight details:");
                                     flight.DisplayFlightDetails();
+                                    System.out.println("We will carge you "+flight.getPrice()+"$ for this flight");
                                 }
                             }
                             break;
@@ -285,8 +305,22 @@ public class UserProfile {
                             input.nextLine();
                             String address = input.next();
                             System.out.println("Enter user preferences: ");
-                            input.nextLine();
-                            String preferences = input.next();
+                            List<String> preferences = new ArrayList<>();
+                            System.out.println("1. Business Class \n2. Economy Class");
+                            int preferenceChoice = input.nextInt();
+                            switch (preferenceChoice) {
+                                case 1:
+                                    preferences.add("Business Class");
+                                    break;
+                                case 2:
+                                    preferences.add("Economy Class");
+                                    break;
+                                default:
+                                    System.out.println("Invalid choice. Please try again.");
+                            }
+                            System.out.println("Favorite food:");
+                            String food = input.next();
+                            preferences.add(food);
                             Users.add(new Customer(username, password, name, email, phone, address, preferences));
                             break;
                         case 2:
@@ -352,7 +386,7 @@ public class UserProfile {
             System.out.println("1. View Profile");
             System.out.println("2. Update Profile");
             System.out.println("3. Create Flight");
-            System.out.println("4. Manage Flights");
+            System.out.println("4. Manage/Edit Flights");
             System.out.println("5. Create Booking");
             System.out.println("6. Generate Reports");
             System.out.println("7. Remove Bookings");
@@ -398,6 +432,7 @@ public class UserProfile {
                     double prices = input.nextDouble();
                     System.out.println("Flight created successfully");
                     Flight.Flights.add(new Flight(flightmuber, airline, origin, destination, departureTime, arrivalTime, availableSeats, prices));
+                    ((Agent) user).getAssignedFlights().add(new Flight(flightmuber, airline, origin, destination, departureTime, arrivalTime, availableSeats, prices));
                     break;
                 case 4:
                     System.out.println("\nPLEASE PROVIDE FLIGHT NUMBER TO EDIT IT'S DETAILS\n");
@@ -444,6 +479,8 @@ public class UserProfile {
                                     System.out.println("Booking flight...");
                                     user.BookFlight(flight);
                                     System.out.println("Flight booked successfully!");
+                                    System.out.println("We will send you a confirmation email to "+user.getEmail());
+                                    System.out.println("We will charge you "+flight.getPrice()+"$ for this flight");
                                     break;
                                 }
                             }
@@ -477,6 +514,7 @@ public class UserProfile {
                             break;
                         }
                     }
+                    break;
                 case 8:
                 System.out.println("USER LOGED OUT\n");
                 choice = -1;

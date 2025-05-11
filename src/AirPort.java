@@ -77,9 +77,23 @@ public class AirPort {
                             System.out.println("Enter your address: ");
                             input.nextLine();
                             String address = input.next();
+                            List<String> preferences = new ArrayList<>();
                             System.out.println("Enter your preferences: ");
-                            input.nextLine();
-                            String preferences = input.next();
+                            System.out.println("1. Business Class \n2. Economy Class");
+                            int preferenceChoice = input.nextInt();
+                            switch (preferenceChoice) {
+                                case 1:
+                                    preferences.add("Business Class");
+                                    break;
+                                case 2:
+                                    preferences.add("Economy Class");
+                                    break;
+                                default:
+                                    System.out.println("Invalid choice. Please try again.");
+                            }
+                            System.out.println("Favorite food:");
+                            String food = input.next();
+                            preferences.add(food);
                             Users.add(new Customer(username, password, name, email, phone, address, preferences));
                             break;
                         case 2:

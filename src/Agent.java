@@ -34,6 +34,7 @@ public class Agent extends User{
                 Salary += A;
                 System.out.println("Commission for flight number " + flight.getFlightNumber() + " is: " + (A));
         }
+        Salary = 0;
     }
     public void DisplayFlightsDetails() {
         for (Flight flight : AssignedFlights) {
@@ -42,5 +43,11 @@ public class Agent extends User{
     }
     public double getSalary() {
         return Salary;
+    }
+    public void SetSalary(double Salary) {
+        this.Salary = Salary;
+    }
+    public List<Flight> getAssignedFlights() {
+        return AssignedFlights;
     }
 }

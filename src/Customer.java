@@ -4,9 +4,9 @@ public class Customer extends User {
     private static long NumberofCustomers = 0;
     private long CustomerId;
     private String address;
-    private String preferences;
+    private List<String> preferences;
     private List<Flight> BookedFlights = new ArrayList<Flight>();
-    public Customer(String Username, String password, String name, String email, long phone, String address, String preferences) {
+    public Customer(String Username, String password, String name, String email, long phone, String address, List<String> preferences) {
         super(Username, password, name, email, phone);
         this.CustomerId = this.NumberofCustomers++;
         this.address = address;
@@ -19,14 +19,14 @@ public class Customer extends User {
     }
     public User logout() {
         return null;
-    }public void UpdateProfile(String Username, String password, String name, String email, long phone, String address, String preferences) {
+    }public void UpdateProfile(String Username, String password, String name, String email, long phone, String address, List<String> preferences) {
         this.UpdateProfile(Username, password, name, email, phone);
         this.address = address;
         this.preferences = preferences;
     }
     public void ViewBookingHistory() {
         for (Flight flight : BookedFlights) {
-            System.out.println(flight);
+            flight.DisplayFlightDetails();
         }
     }
     public void BookFlight(Flight flight) {
@@ -39,6 +39,9 @@ public class Customer extends User {
     }
     public void DisplayProfile(){
         System.out.println("Name: "+getName()+"\nUsername: "+getUsername()+"\nEmail: "+getEmail()+"\nUserID: "+getUserID()+"\nPhone: 0"+getPhone()+"\nAddress: "+address+"\nPreferences: "+preferences);
+    }
+    public String getPrefrences(int index){
+        return preferences.get(index);
     }
 
 
